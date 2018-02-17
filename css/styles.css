@@ -38,7 +38,7 @@ body {
 .projectTile {
     width: 90%;
     background-color: #e4e4e4;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     margin: 0 auto;
     position: relative;
@@ -54,8 +54,8 @@ body {
     background-image: url("http://placeimg.com/640/480/any");
     background-size: cover;
     height: 200px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .projectTile .projectInfo {
     height: 40px;
@@ -67,6 +67,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
+    line-height: 40px;
 }
 
 .grid-x {
@@ -150,10 +151,25 @@ body {
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+}
 
 .modal-footer {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
+}
+
+textarea {
+    border-style: none; 
+    border-color: Transparent;   
+}
+
+#pd {
+    padding-top: 10px;
+}
+
+#mg {
+    margin-top: 10px;
 }
