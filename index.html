@@ -4,12 +4,13 @@
     <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="js/script.js"></script>
 </head>
 <body>
     <div class="sidenav">
-        <a><button id="newButton" class="button">New +</button></a>
+        <a id="newButton"><button class="button">New +</button></a>
         <a href="#">About</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
@@ -95,7 +96,25 @@
 
     </div>
   
-</div>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Create a New Project</h2>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+        
      
+    <script src="js/modal.js"></script>
 </body>
 </html> 
