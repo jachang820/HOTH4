@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
 	<title>Login V2</title>
@@ -32,18 +33,20 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				{% block content %}
+				<form method="post" class="login100-form validate-form">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-26">
 						Sign Up
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter Name">
-						<input class="input100" type="text" name="name">
+						<input class="input100" type="text" name="name" id="name">
 						<span class="focus-input100" data-placeholder="Name"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="email">
+						<input class="input100" type="text" name="email" id="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
@@ -51,18 +54,18 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="pass" id="pass">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter major">
-						<input class="input100" type="text" name="major">
+						<input class="input100" type="text" name="major" id="major">
 						<span class="focus-input100" data-placeholder="Major"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "e.g. software developer">
-						<input class="input100" type="text" name="position">
-						<span class="focus-input100" data-placeholder="Postion"></span>
+						<input class="input100" type="file" name="photo" id="photo"><button type="submit">Upload</button>
+						<span class="focus-input100" data-placeholder="Photo"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -82,6 +85,12 @@
 							Log In
 						</a>
 				</form>
+
+				{% if uploaded_file_url %}
+					<p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+				{% endif %}
+
+
 			</div>
 		</div>
 	</div>
@@ -105,6 +114,48 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script>
+	function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+	}
+	
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
 
+	function signInCallback(authResult) {
+  
+  	fetch('signup_redirect/', {
+	    method: 'POST',
+	    body: JSON.stringify({
+	    	'username' : $('name').val(),
+	    	
+	    }),
+	    headers: {
+	    	"X-CSRFToken": getCookie("csrftoken"),
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+	    },
+	    credentials: 'same-origin',
+	    mode: 'cors',
+	    cache: 'default',
+		});
+
+		location.reload();
+
+	}
+	</script>
 </body>
 </html>

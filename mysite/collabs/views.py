@@ -30,6 +30,23 @@ def login(request):
 	return render(request, 'login.html')
 
 @csrf_exempt
+def signup(request):
+	return render(request, 'signup.html')
+
+@csrf_exempt
+def signup_redirect(request):
+	if request.method == 'POST':
+		prof_data = request.POST
+		prof = Profile(
+			name = prof_data['username'],
+			email = prof_data['email'],
+			major = prof_data['major'],
+			picture = prof_data['photo']
+		)
+		prof.save()
+		return redirect('/')
+
+@csrf_exempt
 def project(request, title):
 	projects = Project.objects.filter(title=title)
 	context = {
@@ -44,10 +61,7 @@ def addproject(request):
 @csrf_exempt
 def process(request):
 	if request.method == 'POST':
-		pdb.set_trace()
 		project_data = request.POST
-		user = Profile(name="user")
-		user.save()
 		proj = Project(
 			owner = Profile.objects.filter(name=project_data['username']).first(),
 			title = project_data['title'],
