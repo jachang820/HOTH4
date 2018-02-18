@@ -1,4 +1,7 @@
 
+
+
+
 (function ($) {
     "use strict";
 
@@ -88,8 +91,3 @@
 
 })(jQuery);
 
-
-
-$("#loginButton").click(function () {
-    window.location.href = "index.html";
-});
