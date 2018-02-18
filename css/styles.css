@@ -94,7 +94,7 @@ body {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 50px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -146,13 +146,13 @@ body {
 }
 
 .modal-header {
-    padding: 2px 16px;
+    padding: 20px 16px;
     background-color: #5cb85c;
     color: white;
 }
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 20px 16px;
 }
 
 .modal-footer {
@@ -171,5 +171,14 @@ textarea {
 }
 
 #mg {
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.container-login100-form-btn {
+    max-width: 300px;
+    margin: 0 auto;
 }
