@@ -15,10 +15,6 @@ class Major(models.Model):
 
 class Profile(models.Model):
 	name = models.CharField('name', max_length=32)
-	picture = models.ImageField(
-		upload_to='user_images/', 
-		default='user_images/None/no-img.jpg', 
-		blank=True)
 	email = models.CharField('email', max_length=32, blank=True)
 	major = models.ForeignKey(Major, on_delete=models.SET_NULL, null=True)
 

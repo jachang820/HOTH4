@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Profile, Project, Major
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 import pdb
 import json
 import datetime
@@ -31,17 +33,24 @@ def login(request):
 
 @csrf_exempt
 def signup(request):
+	if request.method == 'POST' and request.FILES['photo']:
+		prof_data = request.POST
+		pic = request.FILES['photo']
+		fs = FileSystemStorage()
+		filename = fs.save(prof_data['username'] + "/profile.jpg", pic)
+		uploaded_file_url = fs.url(filename)
+		return render(request, 'signup.html', {
+			'uploaded_file_url': uploaded_file_url
+		})
 	return render(request, 'signup.html')
 
 @csrf_exempt
 def signup_redirect(request):
-	if request.method == 'POST':
-		prof_data = request.POST
+	
 		prof = Profile(
 			name = prof_data['username'],
 			email = prof_data['email'],
-			major = prof_data['major'],
-			picture = prof_data['photo']
+			major = prof_data['major']
 		)
 		prof.save()
 		return redirect('/')
