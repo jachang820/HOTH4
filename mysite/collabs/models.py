@@ -1,57 +1,46 @@
 import uuid
 from django.db import models
 
+
 # Create your models here.
 class Major(models.Model):
-	major = models.CharField(max_length=32)
+	name = models.CharField(max_length=32)
 
 	class Meta:
-		ordering = ["major"]
+		ordering = ["name"]
 
 	def __str__(self):
-		return self.major
+		return self.name
 
 
-class User(models.Model):
-	username = models.CharField('username', max_length=32)
+class Profile(models.Model):
+	name = models.CharField('name', max_length=32)
 	picture = models.ImageField(
 		upload_to='user_images/', 
 		default='user_images/None/no-img.jpg', 
-		height_field='height', 
-		width_field='width')
-	email = models.CharField('email', max_length=32)
-	logged_in = models.BooleanField()
+		blank=True)
+	email = models.CharField('email', max_length=32, blank=True)
 	major = models.ForeignKey(Major, on_delete=models.SET_NULL, null=True)
 
 	class Meta:
-		ordering = ["username"]
+		ordering = ["name"]
 
 	def __str__(self):
-		return self.user_name
+		return self.name
 
 
 class Project(models.Model):
-	owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
 	title = models.CharField(max_length=32)
 	tagline = models.CharField(max_length=256, blank=True)
 	description = models.TextField('description')
 	created = models.DateTimeField('create_date')
-	fulfilled = models.BooleanField()
+	fulfilled = models.BooleanField(default=False)
+	collabMajors = models.ManyToManyField(Major)
+	collabUsers = models.ManyToManyField(Profile, blank=True, related_name="collaborators", related_query_name="collaborators")
 
 	class Meta:
 		ordering = ["title"]
 
 	def __str__(self):
 		return self.title
-
-
-class CollabMajor(models.Model):
-	major = models.ForeignKey(Major, on_delete=models.CASCADE)
-	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-	class Meta:
-		ordering = ["major", "project"]
-
-	def __str__(self):
-		return self.major + "-" + self.project
-
