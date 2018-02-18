@@ -14,9 +14,9 @@ import datetime
 def index(request):
 	if request.method == 'POST':
 	# User has logged in
-		login_data = json.load(request)
+		login_data = request.POST
 
-		user = Profile.objects.get(name=login_data['username'])
+		user = Profile.objects.filter(name=login_data['username']).first()
 		projects = Project.objects.filter(collabMajors=user.major).order_by('title')
 		context = {
 			'projects': projects
@@ -57,15 +57,11 @@ def signup_redirect(request):
 
 @csrf_exempt
 def project(request, title):
-	projects = Project.objects.filter(title=title)
+	project = Project.objects.filter(title=title).first()
 	context = {
-		'projects': projects
+		'project': project
 	}
 	return render(request, 'project.html', context)
-
-@csrf_exempt
-def addproject(request):
-	return render(request, 'addproject.html')
 
 @csrf_exempt
 def process(request):

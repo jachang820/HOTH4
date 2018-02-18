@@ -33,7 +33,9 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
+				{% block content %}
 				<form class="login100-form validate-form">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-26">
 						Welcome to Project: LNX
 					</span>
@@ -56,7 +58,7 @@
 					<div class="container-login100-form-btn" id="loginButton">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" onclick="signInCallback()">
 								Login
 							</button>
 						</div>
@@ -73,6 +75,7 @@
 						</a>
 					</div>
 				</form>
+				{% endblock %}
 			</div>
 		</div>
 	</div>
@@ -83,11 +86,6 @@
 
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-	<script>
-			$("#loginButton").click(function () {
-				window.location.href = "index.html";
-			});
-		</script>
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
 <!--===============================================================================================-->
@@ -102,6 +100,49 @@
 	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'js/main.js' %}"></script>
+	<script>
+	function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+	}
+
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+
+	function signInCallback() {
+
+  	fetch('/', {
+	    method: 'POST',
+	    body: {
+	    	'username' : $('name').val(),
+	    	'email' : $('email').val()
+	    },
+	    headers: {
+	    	"X-CSRFToken": getCookie("csrftoken"),
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+	    },
+	    credentials: 'same-origin',
+	    mode: 'cors',
+	    cache: 'default',
+		});
+
+		location.reload();
+
+	}
+	</script>
 
 </body>
 </html>
