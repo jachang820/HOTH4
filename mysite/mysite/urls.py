@@ -21,6 +21,6 @@ import collabs.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('collabs/', include('collabs.urls')),
-    path('', RedirectView.as_view(url='/collabs/', permanent=True))
+    path('', RedirectView.as_view(url='/collabs/', permanent=True)),
+    path('collabs/', include('collabs.urls'))
 ]

@@ -25,7 +25,7 @@ def index(request):
 
 	elif request.method == 'GET':
 	# User has not logged in (we'll add cookies later)
-		return redirect('/login')
+		return redirect('login')
 
 @csrf_exempt
 def login(request):
@@ -33,6 +33,7 @@ def login(request):
 
 @csrf_exempt
 def signup(request):
+	'''
 	if request.method == 'POST' and request.FILES['photo']:
 		prof_data = request.POST
 		pic = request.FILES['photo']
@@ -42,18 +43,20 @@ def signup(request):
 		return render(request, 'signup.html', {
 			'uploaded_file_url': uploaded_file_url
 		})
+	'''
 	return render(request, 'signup.html')
 
 @csrf_exempt
 def signup_redirect(request):
-	
-		prof = Profile(
-			name = prof_data['username'],
-			email = prof_data['email'],
-			major = prof_data['major']
-		)
-		prof.save()
-		return redirect('/')
+	major = Major(name=prof_data['major'])
+	major.save()
+	prof = Profile(
+		name = prof_data['username'],
+		email = prof_data['email'],
+		major = prof_data['major']
+	)
+	prof.save()
+	return redirect('/')
 
 @csrf_exempt
 def project(request, title):
