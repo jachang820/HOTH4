@@ -26,7 +26,7 @@
         <link rel="stylesheet" type="text/css" href="css/util.css">
         <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/projstyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="js/script.js"></script>
@@ -41,82 +41,26 @@
     </div>
 
     <div class="main">
-        <h1 class="title">Projects</h1>
-        <div class="projectWrapper">
-        <div class=grid-x>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
+        <h1 class="header-spacing"> Project Title </h1>
+        <h2 class="header-spacing"> Description </h2>
+        <body>
+            <div class="textbox">
+                <p>User Inputted Description</p>
             </div>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
+          </body>
+        <h2 class="header-spacing"> Contributors </h2>
+        <div>
+          <div class="userWrapper">
+            <div class="grid-x">
+              <div class="cell small-4">
+                    <img src="http://placeimg.com/480/480/any" class="circle" height=200px width=200px>
+                    <p>Name</p>
+                    <p>Email</p>
+                    <p>Position</p>
+              </div>
             </div>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
-
-        <div class=grid-x>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="cell large-4">
-                <div class="projectTile">
-                    <div class="projectImg"></div>
-                    <div class="projectInfo">
-                        <h2>Project Title</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class=grid-x>
-                <div class="cell large-4">
-                    <div class="projectTile">
-                        <div class="projectImg"></div>
-                        <div class="projectInfo">
-                            <h2>Project Title</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="cell large-4">
-                    <div class="projectTile">
-                        <div class="projectImg"></div>
-                        <div class="projectInfo">
-                            <h2>Project Title</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
     </div>
 
     <!-- The Modal -->
@@ -137,24 +81,10 @@
                     <textarea class="input100 form-control" type="description" name="description" rows="10"></textarea>
                     <span class="focus-input100" data-placeholder="Description"></span>
                 </div>
-
-                <div class="wrap-input100">
-                    <input class="input100" type="major" name="title">
-                    <span class="focus-input100" data-placeholder="Who do you need to help you?"></span>
-                </div>
-
-                <p>Image:</p>
-                <input type="file" id="fileInput" name="fileInput" class="form-control-file">
-                
-                <div class="container-login100-form-btn" id="createButton">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn">
-                            Create
-                        </button>
-                    </div>
-                </div>
             </div>
+
+
+
         </div>
     </div>
 
