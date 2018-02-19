@@ -18,34 +18,40 @@
 			<h1>
 				Sign Up
 			</h1>
+			
+			<div id="signuppage1">
+				<input class="input100" type="text" name="first" id="first" placeholder="First Name"><span class="focus-input100"></span>
 
-			<input class="input100" type="text" name="first" id="first" placeholder="First Name"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="last" id="last" placeholder="Last Name"><span class="focus-input100"></span>
 
-			<input class="input100" type="text" name="last" id="last" placeholder="Last Name"><span class="focus-input100"></span>
-
-			<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
-
-			<input class="input100" type="text" name="email" id="email" placeholder="Email"><span class="focus-input100"></span>
-
-			<div id="pass_wrapper">
-				<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-				<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="email" id="email" placeholder="Email"><span class="focus-input100"></span>
 			</div>
 
-			<select class="input100" name="major" id="major">
-				<option value="none" selected disabled hidden>Major</option>
-			{% for major in majors %}
-				<option value="{{ major }}">{{ major }}</option>
-			{% endfor %}
-			</select><span class="focus-input100"></span>
+			<div id="signuppage2">
+				<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo" placeholder="Upload your photo">
 
-			<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo" placeholder="Upload your photo">
-			
-			<div class="wrap-login100-form-btn">
-				<div class="login100-form-bgbtn"></div>
-				<button class="login100-form-btn">
-					Create Account
-				</button>
+				<select class="input100" name="major" id="major">
+					<option value="none" selected disabled hidden>Major</option>
+				{% for major in majors %}
+					<option value="{{ major }}">{{ major }}</option>
+				{% endfor %}
+				</select><span class="focus-input100"></span>
+			</div>
+
+			<div id="signuppage3">
+				<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
+
+				<div id="pass_wrapper">
+					<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
+					<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-login100-form-btn">
+					<div class="login100-form-bgbtn"></div>
+					<button class="login100-form-btn">
+						Create Account
+					</button>
+				</div>
 			</div>
 
 			<span class="smallprint">
@@ -56,11 +62,18 @@
 			</span>
 
 		</form>
+
+		<nav id="signupsteps">
+			<span id="step1">1: Id</span>
+			<span id="step2">2: Profile</span>
+			<span id="step3">3: Sign-in</span>
+		</nav>
+
 		{% endblock %}
 
 	</div>
 
-
+	<script src="{% static 'js/signup.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
 	
 </body>

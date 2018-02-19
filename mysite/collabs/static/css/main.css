@@ -7,6 +7,46 @@
   height: 25px;
 }
 
+#signupsteps {
+  position: absolute;
+  background-image: url('../img/signupsteps.png');
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
+  height: 30px;
+  width: 400px;
+  bottom: 0;
+  z-index: 1;
+}
+
+#step1 {
+  position: absolute;
+  left: 50px;
+}
+
+#step2 {
+  position: absolute;
+  left: 160px;
+}
+
+#step3 {
+  position: absolute;
+  left: 275px;
+}
+
+#signupsteps span {
+  color: black;
+  top: 2px;
+}
+
+.smallprint {
+  position: absolute;
+  font-size: 13px;
+  width: 400px;
+  left: 0px;
+  bottom: 30px;
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -94,13 +134,12 @@ button:hover {
 
 
 /*//////////////////////////////////////////////////////////////////
-[ Utility ]*/
-.smallprint {
-  font-size: 13px;
-}
-
-/*//////////////////////////////////////////////////////////////////
 [ login ]*/
+
+form {
+  padding: 10vh;
+  padding-top: 5vh;
+}
 
 .wrap-login100 {
   position: absolute;
@@ -112,8 +151,6 @@ button:hover {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  padding: 10vh;
-  padding-top: 5vh;
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
