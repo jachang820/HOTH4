@@ -56,18 +56,6 @@
             }
         }
     }
-
-    function showValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).addClass('alert-validate');
-    }
-
-    function hideValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).removeClass('alert-validate');
-    }
     
     /*==================================================================
     [ Show pass ]*/
@@ -75,14 +63,12 @@
     $('.btn-show-pass').on('click', function(){
         if(showPass == 0) {
             $(this).next('input').attr('type','text');
-            $(this).find('i').removeClass('zmdi-eye');
-            $(this).find('i').addClass('zmdi-eye-off');
+            $('#eye').hide();
             showPass = 1;
         }
         else {
             $(this).next('input').attr('type','password');
-            $(this).find('i').addClass('zmdi-eye');
-            $(this).find('i').removeClass('zmdi-eye-off');
+            $('#eye').show();
             showPass = 0;
         }
         

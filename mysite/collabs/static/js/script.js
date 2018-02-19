@@ -1,4 +1,3 @@
-console.log("hello");
 
 $(document).ready(function() {
     $("#createButton").click(function() {

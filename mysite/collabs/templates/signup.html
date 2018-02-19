@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>Sign up for Project:LNX</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+	<div class="wrap-login100">
+		{% block content %}
+		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}">
+			{% csrf_token %}
+			<h1>
+				Sign Up
+			</h1>
+
+			<input class="input100" type="text" name="first" id="first" placeholder="First Name"><span class="focus-input100"></span>
+
+			<input class="input100" type="text" name="last" id="last" placeholder="Last Name"><span class="focus-input100"></span>
+
+			<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
+
+			<input class="input100" type="text" name="email" id="email" placeholder="Email"><span class="focus-input100"></span>
+
+			<div id="pass_wrapper">
+				<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
+				<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
+			</div>
+
+			<select class="input100" name="major" id="major">
+				<option value="none" selected disabled hidden>Major</option>
+			{% for major in majors %}
+				<option value="{{ major }}">{{ major }}</option>
+			{% endfor %}
+			</select><span class="focus-input100"></span>
+
+			<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo" placeholder="Upload your photo">
+			
+			<div class="wrap-login100-form-btn">
+				<div class="login100-form-bgbtn"></div>
+				<button class="login100-form-btn">
+					Create Account
+				</button>
+			</div>
+
+			<span class="smallprint">
+				Already have an account?
+				<a href="{% url 'login' %}">
+				Log In
+				</a>
+			</span>
+
+		</form>
+		{% endblock %}
+
+	</div>
+
+
+	<script src="{% static 'js/main.js' %}"></script>
+	
+</body>
+</html>

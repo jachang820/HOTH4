@@ -2,147 +2,50 @@
 {% load static %}
 <html lang="en">
 <head>
-	<title>Login V2</title>
+	<title>Project:LNX</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-<!--===============================================================================================-->
 </head>
 <body>
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				{% block content %}
-				<form class="login100-form validate-form">
-					{% csrf_token %}
-					<span class="login100-form-title p-b-26">
-						Welcome to Project: LNX
-					</span>
-					<p id="Logo" style="text-align:center;"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
+	<div class="wrap-login100">
+		{% block content %}
+		<form method="post" class="login100-form validate-form" action="{% url 'index' %}">
+			{% csrf_token %}
+			<h1>
+				Welcome to Project: LNX
+			</h1>
+			<p id="logo"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="email" id="email">
-						<span class="focus-input100" data-placeholder="Email"></span>
-					</div>
+			<input class="input100" type="text" name="email" id="email" placeholder="Your email"><span class="focus-input100"></span>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="pass" id="pass">
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
-
-
-					<div class="container-login100-form-btn" id="loginButton">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" onclick="signInCallback()">
-								Login
-							</button>
-						</div>
-					</div>
-
-
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
-
-						<a class="txt2" href="{% url 'signup' %}">
-							Sign Up
-						</a>
-					</div>
-				</form>
-				{% endblock %}
+			<div id="pass_wrapper">
+				<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
+				<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
 			</div>
-		</div>
+
+			<div class="wrap-login100-form-btn" >
+				<div class="login100-form-bgbtn"></div>
+				<button class="login100-form-btn" id="loginButton">
+					Login
+				</button>
+			</div>
+
+			<span class="smallprint">
+				Don’t have an account?
+				<a href="{% url 'signup' %}">
+					Sign Up
+				</a>
+			</span>
+
+		</form>
+		{% endblock %}
 	</div>
 
-	<div id="dropDownSelect1"></div>
-
-
-
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
-	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
-<!--===============================================================================================-->
 	<script src="{% static 'js/main.js' %}"></script>
-	<script>
-	function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-	}
-
-	function csrfSafeMethod(method) {
-	    // these HTTP methods do not require CSRF protection
-	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-
-	function signInCallback() {
-
-  	fetch('/', {
-	    method: 'POST',
-	    body: {
-	    	'username' : $('name').val(),
-	    	'email' : $('email').val()
-	    },
-	    headers: {
-	    	"X-CSRFToken": getCookie("csrftoken"),
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-	    },
-	    credentials: 'same-origin',
-	    mode: 'cors',
-	    cache: 'default',
-		});
-
-		location.reload();
-
-	}
-	</script>
 
 </body>
 </html>

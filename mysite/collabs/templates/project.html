@@ -2,7 +2,6 @@
 {% load static%}
 <html>
 <head>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,18 +16,25 @@
     <div class="sidenav">
         <a id="newButton"><button class="button">New +</button></a>
         <a href="index.html">Projects</a>
-        <a href="#">About</a>
+        <a href="about.html">About</a>
     </div>
 
-    <div class="main" style="text-align:center">
-        <h1 class="header-spacing"> About Project: LNX </h1>
-        <div style="width:60%; margin:0 auto; text-align:left">
-        <p style="font-size:25px">Is your project idea too big for you to complete by yourself? Do you want to work with
-                  a team but don't know enough people who share the same interests? Project:LNX brings
-                  together like-minded people who want to work on projects together! Collaborate, build,
-                  and learn with this community to develop and launch games, applications, websites, or
-                  any project you can think of to share your creative mind with the world.
-          </p>
+    <div class="main">
+        <h1 class="header-spacing"> {{ project.title }} </h1>
+        <h2 class="header-spacing"> {{ project.tagline }} </h2>
+        <p class="header-spacing"> {{ project.description }} </p>
+        <h2 class="header-spacing"> Contributors </h2>
+        <div>
+          <div class="userWrapper">
+            <div class="grid-x">
+              <div class="cell small-4">
+                    <img src="http://placeimg.com/480/480/any" class="circle" height=200px width=200px>
+                    <p>Name</p>
+                    <p>Email</p>
+                    <p>Position</p>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 
@@ -72,10 +78,9 @@
     </div>
 
 
-    <script src="{% static 'vendor/bootstrap/js/popper.js' }"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' }"></script>
-
-    <script src="{% static 'js/main.js' }"></script>
-    <script src="{% static 'js/modal.js' }"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
 </body>
 </html>

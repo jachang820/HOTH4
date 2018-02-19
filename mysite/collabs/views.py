@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Project, Major
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
+from .forms import ImageUploadForm
 import pdb
 import json
 import datetime
@@ -15,8 +15,8 @@ def index(request):
 	if request.method == 'POST':
 	# User has logged in
 		login_data = request.POST
-
-		user = Profile.objects.filter(name=login_data['username']).first()
+		pdb.set_trace()
+		user = Profile.objects.filter(email=login_data['email']).first()
 		projects = Project.objects.filter(collabMajors=user.major).order_by('title')
 		context = {
 			'projects': projects
@@ -33,30 +33,35 @@ def login(request):
 
 @csrf_exempt
 def signup(request):
-	'''
-	if request.method == 'POST' and request.FILES['photo']:
-		prof_data = request.POST
-		pic = request.FILES['photo']
-		fs = FileSystemStorage()
-		filename = fs.save(prof_data['username'] + "/profile.jpg", pic)
-		uploaded_file_url = fs.url(filename)
-		return render(request, 'signup.html', {
-			'uploaded_file_url': uploaded_file_url
-		})
-	'''
-	return render(request, 'signup.html')
+	majors = Major.objects.all().values_list('name', flat=True)
+	return render(request, 'signup.html', { 'majors' : majors })
 
 @csrf_exempt
 def signup_redirect(request):
-	major = Major(name=prof_data['major'])
-	major.save()
-	prof = Profile(
-		name = prof_data['username'],
-		email = prof_data['email'],
-		major = prof_data['major']
-	)
-	prof.save()
-	return redirect('/')
+	if request.method == 'POST' and 'photo' in request.FILES:
+		prof_data = request.POST
+		form = ImageUploadForm(request.POST, request.FILES)
+		prof = Profile(
+			name = prof_data['name'],
+			password = prof_data['password'],
+			email = prof_data['email'],
+			major = Major.objects.filter(name=prof_data['major']).first()
+		)
+		if form.is_valid():
+			prof.photo = form.cleaned_data['photo']
+		prof.save()
+		return render(request, 'login.html')
+	else: 
+		return HttpResponseForbidden("An error has occurred while saving profile.")
+
+
+@csrf_exempt
+def upload_pic(request):
+	if request.method == 'POST':
+		form = ImageUploadForm(request.POST, request.FILES)
+		if form.is_valid():
+			m = Profile.objects.filter()
+
 
 @csrf_exempt
 def project(request, title):

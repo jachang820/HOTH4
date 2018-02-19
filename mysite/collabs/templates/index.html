@@ -2,31 +2,11 @@
 {% load static %}
 <html>
 <head>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
-    <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
@@ -105,70 +85,57 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 
 
-    <script src="{% static 'js/modal.js' %}"></script>
-    <!--===============================================================================================-->
-	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
-        <script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
-    <!--===============================================================================================-->
-        <script src="{% static 'js/main.js' %}"></script>
-<script>
-    function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
-    }
-    return cookieValue;
-    }
+        return cookieValue;
+        }
 
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
 
-    function signInCallback() {
+        function signInCallback() {
 
-    fetch('process/', {
-        method: 'POST',
-        body: {
-            'title' : $('title').val(),
-            'tagline' : $('tagline').val(),
-            'description' : $('description').val(),
-            'majors' : $('majors').val()
-        },
-        headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-        },
-        credentials: 'same-origin',
-        mode: 'cors',
-        cache: 'default',
-        });
+        fetch('process/', {
+            method: 'POST',
+            body: {
+                'title' : $('title').val(),
+                'tagline' : $('tagline').val(),
+                'description' : $('description').val(),
+                'majors' : $('majors').val()
+            },
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+            },
+            credentials: 'same-origin',
+            mode: 'cors',
+            cache: 'default',
+            });
 
-        location.reload();
+            location.reload();
 
-    }
+        }
     </script>
 </body>
 </html>
