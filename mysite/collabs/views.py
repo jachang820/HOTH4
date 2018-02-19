@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Project, Major
-from django.http import HttpResponse, HttpResponseForbidden
+from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from .forms import ImageUploadForm
+from .forms import ImageUploadForm, EmailVerifyForm, UsernameVerifyForm, PasswordVerifyForm
 import pdb
 import json
 import datetime
@@ -41,6 +42,7 @@ def signup_redirect(request):
 	if request.method == 'POST' and 'photo' in request.FILES:
 		prof_data = request.POST
 		form = ImageUploadForm(request.POST, request.FILES)
+		user = User()
 		prof = Profile(
 			name = prof_data['name'],
 			password = prof_data['password'],
@@ -90,5 +92,49 @@ def process(request):
 			proj.collabMajors.add(major)
 		proj.save()
 		return redirect('/')
+
+
+def validate_email(request):
+	email = request.GET.get('email', None)
+	form = EmailVerifyForm(email)
+	is_taken = User.objects.filter(email=email).exists()
+	context = {
+		'is_taken' : is_taken,
+		'is_valid' : form.is_valid(),
+		'errors' : form.errors
+	}
+	return JsonResponse(context)
+
+
+def validate_photo(request):
+	photo = request.FILES['photo']
+	form = ImageUploadForm(photo)
+	context = {
+		'is_valid' : form.is_valid(),
+		'errors' : form.errors
+	}
+	return JsonResponse(context)
+
+
+def validate_username(request):
+	username = request.GET.get('username', None)
+	form = UsernameVerifyForm(username)
+	is_taken = User.objects.filter(username__iexact=username).exists()
+	context = {
+		'is_taken' : is_taken,
+		'is_valid' : form.is_valid(),
+		'errors' : form.errors
+	}
+	return JsonResponse(context)
+
+
+def validate_password(request):
+	password = request.GET.get('password', None)
+	form = PasswordVerifyForm(password)
+	context = {
+		'is_valid' : form.is_valid(),
+		'errors' : form.errors
+	}
+	return JsonResponse(context)
 
 

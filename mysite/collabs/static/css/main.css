@@ -39,6 +39,12 @@
   top: 2px;
 }
 
+.error-msg {
+  font-size: 13px;
+  color: red;
+  height: 1em;
+}
+
 .smallprint {
   position: absolute;
   font-size: 13px;
