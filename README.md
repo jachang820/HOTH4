@@ -13,7 +13,7 @@ The app currently runs on a Django backend with sqlite3 database (will switch to
 Our team is composed of, in alphabetical order
 
 * **Alex Chen** - [alexanderqchen](https://github/alexanderqchen)
-* **Jonathan Chang** - *Initial work* - [jachang820](https://github.com/jachang820)
+* **Jonathan Chang** - [jachang820](https://github.com/jachang820)
 * **Rebecca Xu** - [rxu1006](https://github.com/rxu1006)
 
 Also thanks to the people who taught us so much and designed our logo.
