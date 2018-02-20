@@ -190,18 +190,6 @@ textarea {
     border-color: Transparent;
 }
 
-#pd {
-    padding-top: 10px;
-}
-
-#mg {
-<<<<<<< HEAD
-    margin-top: 10px;
-}
-=======
-    margin-top: 5px;
-}
-
 textarea {
     resize: none;
 }

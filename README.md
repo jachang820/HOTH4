@@ -20,3 +20,25 @@ Our team is composed of, in alphabetical order
 * **Rebecca Xu** - [rxu1006](https://github.com/rxu1006)
 
 Also thanks to the people who taught us so much and designed our logo.
+
+## To Do
+
+* Remove dependency from Foundation and Bootstrap.
+* Fix new project form. Add collab majors by tags.
+* View project details as a modal.
+* Clean up project tile view.
+* Add sign out button.
+* Add user profile dashboard.
+* Add login with Facebook.
+* Add email notifications.
+* Add My Projects to dashboard.
+* Streamline Join Projects process.
+* Disambiguate student and mentor user accounts.
+* Migrate database to Firebase.
+* Add concurrent chat.
+* Find more suitable background image.
+* Improve responsiveness.
+* Host on AWS Elastic Beanstalk.
+* Make mobile version
+* ???
+* Profit
