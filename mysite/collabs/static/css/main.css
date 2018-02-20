@@ -313,7 +313,7 @@ h1 {
 /*------------------------------------------------------------------
 [ Button ]*/
 
-.wrap-login100-form-btn {
+.button-mask {
   width: 100%;
   display: block;
   position: relative;
@@ -324,26 +324,32 @@ h1 {
   margin-top: 2em;
 }
 
-.login100-form-bgbtn {
+.button-bg {
   position: absolute;
+  background: #AAAAAA;
   z-index: -1;
   width: 300%;
   height: 100%;
-  background: #a64bf4;
+  top: 0;
+  left: -100%;
+}
+
+.greyed-out {
+  background: #AAAAAA;
+}
+
+.gradient {
   background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
   background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
   background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
   background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-  top: 0;
-  left: -100%;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
 
-.login100-form-btn {
+.fancy-button {
   font-family: Poppins-Medium;
   font-size: 1em;
   color: #fff;
@@ -362,7 +368,7 @@ h1 {
   height: 50px;
 }
 
-.wrap-login100-form-btn:hover .login100-form-bgbtn {
+.button-mask:hover .button-bg {
   left: 0;
 }
 

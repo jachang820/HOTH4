@@ -13,7 +13,7 @@
 
 	<div class="wrap-login100">
 		{% block content %}
-		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}"
+		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}" name="signupform" id="signupform" 
 			data-validate-email-url="{% url 'validate_email' %}" 
 			data-validate-photo-url="{% url 'validate_photo' %}" 
 			data-validate-major-url="{% url 'validate_major' %}" 
@@ -66,9 +66,9 @@
 				</div>
 				<div class="error-msg" id="validate-confirm"></div>
 
-				<div class="wrap-login100-form-btn">
-					<div class="login100-form-bgbtn"></div>
-					<button class="login100-form-btn">
+				<div class="button-mask">
+					<div class="button-bg"></div>
+					<button class="fancy-button">
 						Create Account
 					</button>
 				</div>

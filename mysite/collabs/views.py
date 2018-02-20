@@ -39,30 +39,26 @@ def signup(request):
 
 @csrf_exempt
 def signup_redirect(request):
-	if request.method == 'POST' and 'photo' in request.FILES:
+	if request.method == 'POST':
 		prof_data = request.POST
-		form = ImageUploadForm(request.POST, request.FILES)
 		user = User()
-		prof = Profile(
-			name = prof_data['name'],
-			password = prof_data['password'],
-			email = prof_data['email'],
-			major = Major.objects.filter(name=prof_data['major']).first()
-		)
-		if form.is_valid():
-			prof.photo = form.cleaned_data['photo']
-		prof.save()
+		user.first_name = prof_data['firstname']
+		user.last_name = prof_data['lastname']
+		user.username = prof_data['name']
+		user.set_password(prof_data['password'])
+		user.email = prof_data['email']
+		user.save()
+		user.profile.major = Major.objects.filter(name=prof_data['major'])[0]
+
+		if 'photo' in request.FILES:
+			form = ImageUploadForm(request.POST, request.FILES)
+			if form.is_valid():
+				user.profile.photo = form.cleaned_data['photo']
+		
+		user.save()
 		return render(request, 'login.html')
 	else: 
-		return HttpResponseForbidden("An error has occurred while saving profile.")
-
-
-@csrf_exempt
-def upload_pic(request):
-	if request.method == 'POST':
-		form = ImageUploadForm(request.POST, request.FILES)
-		if form.is_valid():
-			m = Profile.objects.filter()
+		return HttpResponseForbidden("Oops! Should've used POST.")
 
 
 @csrf_exempt
@@ -93,10 +89,9 @@ def process(request):
 		proj.save()
 		return redirect('/')
 
-
+@csrf_exempt
 def validate_email(request):
-	print("hi")
-	email = request.GET.get('email', None)
+	email = request.POST.get('email', None)
 	form = EmailVerifyForm({'email' : email})
 	is_taken = User.objects.filter(email=email).exists()
 	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['email'][0]
@@ -107,10 +102,10 @@ def validate_email(request):
 	}
 	return JsonResponse(context)
 
-
+@csrf_exempt
 def validate_photo(request):
-	photo = request.FILES['photo']
-	form = ImageUploadForm({'photo' : photo})
+	
+	form = ImageUploadForm(request.POST, request.FILES)
 	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['photo'][0]
 	context = {
 		'is_valid' : form.is_valid(),
@@ -118,7 +113,7 @@ def validate_photo(request):
 	}
 	return JsonResponse(context)
 
-
+@csrf_exempt
 def validate_major(request):
 	major = request.GET.get('major', None)
 	is_valid = Major.objects.filter(name=major).exists()
@@ -128,9 +123,9 @@ def validate_major(request):
 	}
 	return JsonResponse(context)
 
-
+@csrf_exempt
 def validate_username(request):
-	username = request.GET.get('username', None)
+	username = request.POST.get('username', None)
 	form = UsernameVerifyForm({'username': username})
 	is_taken = User.objects.filter(username__iexact=username).exists()
 	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['username'][0]
@@ -141,9 +136,9 @@ def validate_username(request):
 	}
 	return JsonResponse(context)
 
-
+@csrf_exempt
 def validate_password(request):
-	password = request.GET.get('password', None)
+	password = request.POST.get('password', None)
 	form = PasswordVerifyForm({'password' : password})
 	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['password'][0]
 	context = {

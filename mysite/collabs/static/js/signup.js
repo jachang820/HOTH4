@@ -64,6 +64,19 @@ $(document).ready(function() {
 
 		}
 
+		var lastpage_is_valid =
+			username_is_valid && password_is_valid && confirm_is_valid;
+
+		if (lastpage_is_valid) {
+			$(".button-bg").removeClass("greyed-out").addClass("gradient");
+			$(".fancy-button").prop("disabled", false);
+			$(".fancy-button").css("cursor", "pointer");
+		} else {
+			$(".button-bg").removeClass("gradient").addClass("greyed-out");
+			$(".fancy-button").prop("disabled", true);
+			$(".fancy-button").css("cursor", "context-menu");
+		}
+
 	}
 
 	function showStep1() { 
@@ -83,7 +96,7 @@ $(document).ready(function() {
 		showStep(3);
 		validate_username();
 		validate_password();
-		validate_confirmpw();
+		validate_pwconfirm();
 	}
 
 	// run default page
@@ -138,6 +151,7 @@ $(document).ready(function() {
 		// server test
 			var form = $("#email").closest("form");
 			$.ajax({
+				type: 'POST',
         url: form.attr("data-validate-email-url"),
         data: form.serialize(),
         dataType: 'json',
@@ -161,19 +175,33 @@ $(document).ready(function() {
 
 	function validate_photo() {
 
-		var filename = $("#photo").val();
+		var file = $("#photo").get(0).files[0];
+		
+		if (!file) {
+			$("#validate-photo").text("Cancelled.");
+			$("#photo").val("");
 
-		if (filename.substr(filename.length - 4) != ".jpg" &&
-			  filename.substr(filename.length - 5) != ".jpeg") {
+		} else if (file['type'] != "image/jpeg") {
 			$("#validate-photo").text("Only jpeg files supported.");
+			$("#photo").val("");
+
+		} else if (file['size'] > 250000) {
+			$("#validate-photo").text("Maximum size 250KB exceeded.");
 			$("#photo").val("");
 
 		} else {
 		// server test
 			var form = $("#photo").closest("form");
+			var newform = new FormData(form.get(0));
+			newform.append("photo", file);
 			$.ajax({
+				type: 'POST',
         url: form.attr("data-validate-photo-url"),
-        data: form.serialize(),
+        data: newform,
+        mimeType: "multipart/form-data",
+        contentType: false,
+        processData: false,
+        cache: false,
         dataType: 'json',
         success: function (data) {
           if (!data.is_valid) {
@@ -182,6 +210,7 @@ $(document).ready(function() {
             $("#photo").val("");
 
           } else {
+          	console.log("Valid photo.");
           	$("#validate-photo").text("");
 
           }
@@ -213,7 +242,6 @@ $(document).ready(function() {
           	$("#validate-major").text("");
           	major_is_valid = true;
           }
-          console.log(major_is_valid);
           showStep(2);
         }
       });
@@ -222,25 +250,29 @@ $(document).ready(function() {
 
 	function validate_username() {
 
-		var valid_username = /[^A-Za-z0-9!@^*_+-=.()]+/;
+		var valid_username = /[^A-Za-z0-9@_+-.]+/;
 
 		if ($("#name").val().length > 150) {
 			$("#validate-username").text("Username must be 150 characters or less.");
 			username_is_valid = false;
+			showStep(3);
 
 		} else if ($("#name").val().length == 0) {
 			$("#validate-username").text("Username is required.");
 			username_is_valid = false;
+			showStep(3);
 
 		} else if (valid_username.test($("#name").val())) {
 			$("#validate-username").text("Username contains invalid characters. " + 
-				"Must contain only A-Za-z0-9!@^*_+-=.()");
+				"Must contain only A-Za-z0-9@_+-.");
 			username_is_valid = false;
+			showStep(3);
 
 		} else {
 		// server test
 			var form = $("#name").closest("form");
 			$.ajax({
+				type: 'POST',
         url: form.attr("data-validate-username-url"),
         data: form.serialize(),
         dataType: 'json',
@@ -254,7 +286,7 @@ $(document).ready(function() {
           	username_is_valid = true;
 
           }
-
+          showStep(3);
         }
       });
 		}
@@ -262,26 +294,33 @@ $(document).ready(function() {
 
 	function validate_password() {
 
+		validate_pwconfirm();
+
 		if ($("#password").val().length < 8) {
 			$("#validate-password").text("Password is too short. Must be at least 8 characters.");
 			password_is_valid = false;
+			showStep(3);
 
 		} else if (!isNaN($("#password").val())) {
 			$("#validate-password").text("Password cannot be entirely numeric.");
 			password_is_valid = false;
+			showStep(3);
 
 		} else if ($("#password").val() == $("#email").val()) {
 			$("#validate-password").text("Password cannot be the same as your email.");
 			password_is_valid = false;
+			showStep(3);
 
 		} else if ($("#password").val() == $("#name").val()) {
 			$("#validate-password").text("Password cannot be the same as your username.");
 			password_is_valid = false;
+			showStep(3);
 
 		} else {
 		// server test
 			var form = $("#password").closest("form");
 			$.ajax({
+				type: 'POST',
         url: form.attr("data-validate-password-url"),
         data: form.serialize(),
         dataType: 'json',
@@ -295,21 +334,23 @@ $(document).ready(function() {
           	password_is_valid = true;
 
           }
-
+          showStep(3);
         }
       });
 		}
 	}
 
-	function validate_confirmpw() {
+	function validate_pwconfirm() {
 
 		if ($("#pwConfirm").val() != $("#password").val()) {
 			$("#validate-confirm").text("Password does not match.");
 			confirm_is_valid = false;
+			showStep(3);
 
 		} else {
 			$("#validate-confirm").text("");
 			confirm_is_valid = true;
+			showStep(3);
 
 		}
 	}
