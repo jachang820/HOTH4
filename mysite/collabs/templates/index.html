@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+    <div class="sidenav">
+        <a id="newButton"><button class="button">New +</button></a>
+        <a href="#">Projects</a>
+        <a href="about.html">About</a>
+    </div>
+
+    <div class="main">
+        {% for project in projects %}
+            <a href="{% url project title=project.title %}">
+                <h1 class="title">{{ project.title }}</h1></a>
+            <div class="projectWrapper">
+            <div class=grid-x>
+            <div class="cell large-4">
+                <div class="projectTile">
+                    <div class="projectImg"></div>
+                    <div class="projectInfo">
+                        <h2>{{ project.tagline }}</h2>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Create a New Project</h2>
+                </div>
+                <div class="modal-body">
+                    {% block content %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="wrap-input100 validate-input" id="mg">
+                            <input class="input100" type="title" name="title" id="title">
+                            <span class="focus-input100" data-placeholder="Title"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" id="mg">
+                            <input class="input100" type="tagline" name="tagline" id="tagline">
+                            <span class="focus-input100" data-placeholder="Tagline"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" id="pd">
+                            <textarea class="input100 form-control" type="description" name="description" id="description" rows="10"></textarea>
+                            <span class="focus-input100" data-placeholder="Description"></span>
+                        </div>
+
+                        <div class="wrap-input100">
+                            <input class="input100" type="majors" name="majors" id="majors">
+                            <span class="focus-input100" data-placeholder="Who do you need to help you? (separate with commas)"></span>
+                        </div>
+
+                        <p>Image:</p>
+                        <input type="file" id="fileInput" name="fileInput" id="fileInput" class="form-control-file">
+
+                        <div class="container-login100-form-btn" id="createButton">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <button class="login100-form-btn">Create
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

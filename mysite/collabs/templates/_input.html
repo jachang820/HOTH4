@@ -1,0 +1,10 @@
+<input 
+	class="input100" 
+	name="{{ label }}" 
+	id="{{ label }}" 
+	{% if desc %} placeholder="{{ desc }}" {% endif %}
+	type="{% if type %}{{ type }}{% else %}text{% endif %}" 
+	{% if accept %} accept="{{ accept }}" {% endif %}
+>
+<span class="focus-input100"></span>
+<div class="error-msg" id="validate-{{ label }}"></div>

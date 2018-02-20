@@ -1,9 +1,10 @@
 
 $('.btn-show-pass').on('click', function(){
-    if ($("#password").attr('type') = "text") {
-        $("#password").attr('type', "password");
+	
+    if ($(this).next('input').attr('type') == "text") {
+        $(this).next('input').attr('type', "password");
     } else {
-        $("#password").attr('type', "text");
+        $(this).next('input').attr('type', "text");
     }
     
 });

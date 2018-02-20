@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-	<title>Project:LNX</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-</head>
-<body>
+{% extends '__base.html' %}
 
+{% load static %}
+{% block content %}
 	<div class="wrap-login100">
-		{% block content %}
+		
 		<form method="post" class="login100-form validate-form" action="{% url 'auth' %}">
 			{% csrf_token %}
 			<h1>
@@ -20,21 +11,9 @@
 			</h1>
 			<p id="logo"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
 
-			<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
-			{% if errors %}
-				<div class="error-msg">{{ errors }}</div>
-			{% endif %}
-			<div id="pass-wrapper">
-				<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-				<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
-			</div>
-
-			<div class="button-mask" >
-				<div class="button-bg"></div>
-				<button class="fancy-button">
-					Login
-				</button>
-			</div>
+			{% include '_input.html' with label='name' desc="Username" %}
+			{% include '_password.html' with label='password' desc="Password" %}
+			{% include '_fancybutton.html' with text="login" %}
 
 			<span class="smallprint">
 				Don’t have an account?
@@ -44,11 +23,8 @@
 			</span>
 
 		</form>
-		{% endblock %}
+		
 	</div>
 
 	<script src="{% static 'js/login.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}

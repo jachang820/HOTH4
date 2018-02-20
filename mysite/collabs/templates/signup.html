@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-	<title>Sign up for Project:LNX</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-</head>
-<body>
+{% extends '__base.html' %}
 
+{% load static %}
+{% block content %}
 	<div class="wrap-login100">
-		{% block content %}
+		
 		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}" name="signupform" id="signupform" 
 			data-validate-email-url="{% url 'validate_email' %}" 
 			data-validate-photo-url="{% url 'validate_photo' %}" 
@@ -25,22 +16,14 @@
 			</h1>
 			
 			<div id="signuppage1">
-				<input class="input100" type="text" name="firstname" id="firstname" placeholder="First Name"><span class="focus-input100"></span>
-				<div class="error-msg" id="validate-firstname"></div>
-
-				<input class="input100" type="text" name="lastname" id="lastname" placeholder="Last Name"><span class="focus-input100"></span>
-				<div class="error-msg" id="validate-lastname"></div>
-
-				<input class="input100" type="text" name="email" id="email" placeholder="Email"><span class="focus-input100"></span>
-				<div class="error-msg" id="validate-email"></div>
+				{% include '_input.html' with label='firstname' desc="First Name" %}
+				{% include '_input.html' with label='lastname' desc="Last Name" %}
+				{% include '_input.html' with label='email' desc="Email" %}
 			</div>
-
 			<div id="signuppage2">
-
 				<span class="input100">Upload a profile photo.</span>
-				<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo">
-				<div class="error-msg" id="validate-photo"></div>
-
+				{% include '_input.html' with label='photo' type='file' accept="image/jpeg" %}
+				
 				<select class="input100" name="major" id="major">
 					<option value="none" selected disabled hidden>Major</option>
 				{% for major in majors %}
@@ -49,29 +32,11 @@
 				</select><span class="focus-input100"></span>
 				<div class="error-msg" id="validate-major"></div>
 			</div>
-
 			<div id="signuppage3">
-				<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
-				<div class="error-msg" id="validate-username"></div>
-
-				<div id="pass-wrapper">
-					<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-					<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
-				</div>
-				<div class="error-msg" id="validate-password"></div>
-
-				<div id="pass-wrapper">
-					<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-					<input class="input100" type="password" name="pwConfirm" id="pwConfirm" placeholder="Confirm password"><span class="focus-input100"></span>
-				</div>
-				<div class="error-msg" id="validate-confirm"></div>
-
-				<div class="button-mask">
-					<div class="button-bg"></div>
-					<button class="fancy-button">
-						Create Account
-					</button>
-				</div>
+				{% include '_input.html' with label='name' desc="Username" %}
+				{% include '_password.html' with label='password' desc="Password" %}
+				{% include '_password.html' with label='confirm' desc="Confirm password" %}
+				{% include '_fancybutton.html' with text="create account" %}
 			</div>
 
 			<span class="smallprint">
@@ -89,12 +54,7 @@
 			<span id="step3">3: Sign-in</span>
 		</nav>
 
-		{% endblock %}
-
 	</div>
 
 	<script src="{% static 'js/signup.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-	
-</body>
-</html>
+{% endblock %}

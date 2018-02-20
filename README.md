@@ -6,8 +6,6 @@ Originally developed for Hack on the Hill 4 at UCLA, Project:LNX is an app that 
 
 The app currently runs on a Django backend with sqlite3 database (will switch to mysql).
 
-### Prerequisites
-
 ## Authors
 
 Our team is composed of, in alphabetical order

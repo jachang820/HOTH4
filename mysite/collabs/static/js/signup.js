@@ -344,7 +344,7 @@ $(document).ready(function() {
 
 	function validate_pwconfirm() {
 
-		if ($("#pwConfirm").val() != $("#password").val()) {
+		if ($("#confirm").val() != $("#password").val()) {
 			$("#validate-confirm").text("Password does not match.");
 			confirm_is_valid = false;
 			showStep(3);
@@ -369,7 +369,7 @@ $(document).ready(function() {
 	$("#major").on('change', function() { validate_major();	});
 	$("#name").on('input', function() { validate_username(); });
 	$("#password").on('input', function() { validate_password(); });
-	$("#pwConfirm").on('input', function() { validate_pwconfirm(); });
+	$("#confirm").on('input', function() { validate_pwconfirm(); });
 
 });
 
