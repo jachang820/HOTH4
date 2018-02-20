@@ -21,7 +21,9 @@
 			<p id="logo"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
 
 			<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
-
+			{% if errors %}
+				<div class="error-msg">{{ errors }}</div>
+			{% endif %}
 			<div id="pass-wrapper">
 				<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
 				<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
@@ -45,6 +47,7 @@
 		{% endblock %}
 	</div>
 
+	<script src="{% static 'js/login.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
 
 </body>

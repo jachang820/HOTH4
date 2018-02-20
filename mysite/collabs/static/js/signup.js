@@ -80,27 +80,21 @@ $(document).ready(function() {
 	}
 
 	function showStep1() { 
-		showStep(1);
 		validate_firstname();
 		validate_lastname();
 		validate_email();
 	}
 
 	function showStep2() { 
-		showStep(2);
 		validate_photo();
 		validate_major();
 	}
 	
 	function showStep3() { 
-		showStep(3);
 		validate_username();
 		validate_password();
 		validate_pwconfirm();
 	}
-
-	// run default page
-	showStep(1);
 
 
 	function validate_firstname() {

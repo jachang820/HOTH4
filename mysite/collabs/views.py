@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Project, Major
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -15,14 +16,24 @@ import datetime
 def index(request):
 	if request.method == 'POST':
 	# User has logged in
-		login_data = request.POST
-		pdb.set_trace()
-		user = Profile.objects.filter(email=login_data['email']).first()
-		projects = Project.objects.filter(collabMajors=user.major).order_by('title')
-		context = {
-			'projects': projects
-		}
-		return render(request, 'index.html', context)
+		username = request.POST['name']
+		password = request.POST['password']
+	
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			auth_login(request, user)
+
+			projects = Project.objects.filter(collabMajors=user.profile.major).order_by('title')
+			context = {
+				'projects': projects
+			}
+			return render(request, 'index.html', context)
+
+		else:
+			context = {
+				'errors': 'Either username or password is invalid.'
+			}
+			return render(request, 'login.html', context)
 
 	elif request.method == 'GET':
 	# User has not logged in (we'll add cookies later)
@@ -40,14 +51,17 @@ def signup(request):
 @csrf_exempt
 def signup_redirect(request):
 	if request.method == 'POST':
+
 		prof_data = request.POST
-		user = User()
-		user.first_name = prof_data['firstname']
-		user.last_name = prof_data['lastname']
-		user.username = prof_data['name']
-		user.set_password(prof_data['password'])
-		user.email = prof_data['email']
-		user.save()
+
+		user = User.objects.create_user(
+			prof_data['name'],
+			prof_data['email'],
+			prof_data['password'],
+			first_name=prof_data['firstname'],
+			last_name=prof_data['lastname']
+		)
+
 		user.profile.major = Major.objects.filter(name=prof_data['major'])[0]
 
 		if 'photo' in request.FILES:
