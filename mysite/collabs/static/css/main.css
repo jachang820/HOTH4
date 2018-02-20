@@ -267,13 +267,6 @@ h1 {
   width: 100%;
 }
 
-.has-val.input100 + .focus-input100::after {
-  top: -15px;
-}
-
-.has-val.input100 + .focus-input100::before {
-  width: 100%;
-}
 
 /*---------------------------------------------*/
 .btn-show-pass {

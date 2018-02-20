@@ -13,7 +13,7 @@
 
 	<div class="wrap-login100">
 		{% block content %}
-		<form method="post" class="login100-form validate-form" action="{% url 'index' %}">
+		<form method="post" class="login100-form validate-form" action="{% url 'auth' %}">
 			{% csrf_token %}
 			<h1>
 				Welcome to Project: LNX

@@ -3,7 +3,6 @@ from .models import Profile, Project, Major
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from .forms import ImageUploadForm, EmailVerifyForm, UsernameVerifyForm, PasswordVerifyForm
 import pdb
@@ -12,8 +11,11 @@ import datetime
 
 
 # Create your views here.
-@csrf_exempt
 def index(request):
+	return redirect('login')
+
+
+def auth(request):
 	if request.method == 'POST':
 	# User has logged in
 		username = request.POST['name']
@@ -27,7 +29,7 @@ def index(request):
 			context = {
 				'projects': projects
 			}
-			return render(request, 'index.html', context)
+			return redirect('projects')
 
 		else:
 			context = {
@@ -39,16 +41,16 @@ def index(request):
 	# User has not logged in (we'll add cookies later)
 		return redirect('login')
 
-@csrf_exempt
+
 def login(request):
 	return render(request, 'login.html')
 
-@csrf_exempt
+
 def signup(request):
 	majors = Major.objects.all().values_list('name', flat=True)
 	return render(request, 'signup.html', { 'majors' : majors })
 
-@csrf_exempt
+
 def signup_redirect(request):
 	if request.method == 'POST':
 
@@ -75,7 +77,16 @@ def signup_redirect(request):
 		return HttpResponseForbidden("Oops! Should've used POST.")
 
 
-@csrf_exempt
+def projects(request):
+
+	major = request.user.profile.major
+	context = {
+		'projects': Project.objects.filter(collabMajors=major).order_by("title")
+	}
+
+	return render(request, 'findprojects.html', context)
+
+
 def project(request, title):
 	project = Project.objects.filter(title=title).first()
 	context = {
@@ -83,7 +94,7 @@ def project(request, title):
 	}
 	return render(request, 'project.html', context)
 
-@csrf_exempt
+
 def process(request):
 	if request.method == 'POST':
 		project_data = request.POST
@@ -103,7 +114,7 @@ def process(request):
 		proj.save()
 		return redirect('/')
 
-@csrf_exempt
+
 def validate_email(request):
 	email = request.POST.get('email', None)
 	form = EmailVerifyForm({'email' : email})
@@ -116,7 +127,7 @@ def validate_email(request):
 	}
 	return JsonResponse(context)
 
-@csrf_exempt
+
 def validate_photo(request):
 	
 	form = ImageUploadForm(request.POST, request.FILES)
@@ -127,7 +138,7 @@ def validate_photo(request):
 	}
 	return JsonResponse(context)
 
-@csrf_exempt
+
 def validate_major(request):
 	major = request.GET.get('major', None)
 	is_valid = Major.objects.filter(name=major).exists()
@@ -137,7 +148,7 @@ def validate_major(request):
 	}
 	return JsonResponse(context)
 
-@csrf_exempt
+
 def validate_username(request):
 	username = request.POST.get('username', None)
 	form = UsernameVerifyForm({'username': username})
@@ -150,7 +161,7 @@ def validate_username(request):
 	}
 	return JsonResponse(context)
 
-@csrf_exempt
+
 def validate_password(request):
 	password = request.POST.get('password', None)
 	form = PasswordVerifyForm({'password' : password})

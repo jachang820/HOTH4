@@ -20,6 +20,14 @@ $(document).ready(function() {
 	password_is_valid = false;
 	confirm_is_valid = false;
 	
+	// disable enter key on form
+	$(document).keypress(
+	  function(event){
+	    if (event.which == '13') {
+	      event.preventDefault();
+	    }
+	});
+
 	function showStep(stepnum) {
 		// Show the right page
 		$("#signuppage1").hide();

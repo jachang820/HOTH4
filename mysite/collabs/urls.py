@@ -4,6 +4,8 @@ import collabs.views as views
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
+    path('login/auth/', views.auth, name='auth'),
+    path('projects/', views.projects, name='projects'),
     path('projects/<slug:title>/', views.project, name='project'),
     path('process/', views.process, name='process'),
     path('signup/', views.signup, name='signup'),
