@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup_redirect/', views.signup_redirect, name='signup_redirect'),
     path('ajax/email/', views.validate_email, name='validate_email'),
     path('ajax/photo/', views.validate_photo, name='validate_photo'),
+    path('ajax/major/', views.validate_major, name='validate_major'),
     path('ajax/username/', views.validate_username, name='validate_username'),
     path('ajax/password/', views.validate_password, name='validate_password'),
 ]

@@ -95,45 +95,60 @@ def process(request):
 
 
 def validate_email(request):
+	print("hi")
 	email = request.GET.get('email', None)
-	form = EmailVerifyForm(email)
+	form = EmailVerifyForm({'email' : email})
 	is_taken = User.objects.filter(email=email).exists()
+	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['email'][0]
 	context = {
 		'is_taken' : is_taken,
 		'is_valid' : form.is_valid(),
-		'errors' : form.errors
+		'errors' : err
 	}
 	return JsonResponse(context)
 
 
 def validate_photo(request):
 	photo = request.FILES['photo']
-	form = ImageUploadForm(photo)
+	form = ImageUploadForm({'photo' : photo})
+	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['photo'][0]
 	context = {
 		'is_valid' : form.is_valid(),
-		'errors' : form.errors
+		'errors' : err
+	}
+	return JsonResponse(context)
+
+
+def validate_major(request):
+	major = request.GET.get('major', None)
+	is_valid = Major.objects.filter(name=major).exists()
+	context = {
+		'is_valid' : is_valid,
+		'errors' : ""
 	}
 	return JsonResponse(context)
 
 
 def validate_username(request):
 	username = request.GET.get('username', None)
-	form = UsernameVerifyForm(username)
+	form = UsernameVerifyForm({'username': username})
 	is_taken = User.objects.filter(username__iexact=username).exists()
+	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['username'][0]
 	context = {
 		'is_taken' : is_taken,
 		'is_valid' : form.is_valid(),
-		'errors' : form.errors
+		'errors' : err
 	}
 	return JsonResponse(context)
 
 
 def validate_password(request):
 	password = request.GET.get('password', None)
-	form = PasswordVerifyForm(password)
+	form = PasswordVerifyForm({'password' : password})
+	err = "" if form.is_valid() else json.loads(json.dumps(form.errors))['password'][0]
 	context = {
 		'is_valid' : form.is_valid(),
-		'errors' : form.errors
+		'errors' : err
 	}
 	return JsonResponse(context)
 

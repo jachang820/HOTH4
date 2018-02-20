@@ -15,7 +15,8 @@
 		{% block content %}
 		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}"
 			data-validate-email-url="{% url 'validate_email' %}" 
-			date-validate-photo-url="{% url 'validate_photo' %}" 
+			data-validate-photo-url="{% url 'validate_photo' %}" 
+			data-validate-major-url="{% url 'validate_major' %}" 
 			data-validate-username-url="{% url 'validate_username' %}" 
 			data-validate-password-url="{% url 'validate_password' %}">
 			{% csrf_token %}
@@ -24,38 +25,44 @@
 			</h1>
 			
 			<div id="signuppage1">
-				<input class="input100" type="text" name="first" id="first" placeholder="Optional: First Name"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="firstname" id="firstname" placeholder="First Name"><span class="focus-input100"></span>
+				<div class="error-msg" id="validate-firstname"></div>
 
-				<input class="input100" type="text" name="last" id="last" placeholder="Optional: Last Name"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="lastname" id="lastname" placeholder="Last Name"><span class="focus-input100"></span>
+				<div class="error-msg" id="validate-lastname"></div>
 
-				<input class="input100" type="text" name="email" id="email" placeholder="Required: Email"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="email" id="email" placeholder="Email"><span class="focus-input100"></span>
 				<div class="error-msg" id="validate-email"></div>
 			</div>
 
 			<div id="signuppage2">
-				<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo" placeholder="Optional: Profile photo">
+
+				<span class="input100">Upload a profile photo.</span>
+				<input class="input100" type="file" accept="image/jpeg" name="photo" id="photo">
+				<div class="error-msg" id="validate-photo"></div>
 
 				<select class="input100" name="major" id="major">
-					<option value="none" selected disabled hidden>Required: Major</option>
+					<option value="none" selected disabled hidden>Major</option>
 				{% for major in majors %}
 					<option value="{{ major }}">{{ major }}</option>
 				{% endfor %}
 				</select><span class="focus-input100"></span>
+				<div class="error-msg" id="validate-major"></div>
 			</div>
 
 			<div id="signuppage3">
-				<input class="input100" type="text" name="name" id="name" placeholder="Required: Username"><span class="focus-input100"></span>
+				<input class="input100" type="text" name="name" id="name" placeholder="Username"><span class="focus-input100"></span>
 				<div class="error-msg" id="validate-username"></div>
 
-				<div id="pass_wrapper">
+				<div id="pass-wrapper">
 					<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-					<input class="input100" type="password" name="password" id="password" placeholder="Required: Password"><span class="focus-input100"></span>
+					<input class="input100" type="password" name="password" id="password" placeholder="Password"><span class="focus-input100"></span>
 				</div>
 				<div class="error-msg" id="validate-password"></div>
 
-				<div id="pass_wrapper">
+				<div id="pass-wrapper">
 					<img src="{% static 'eye.svg' %}" class="eye btn-show-pass">
-					<input class="input100" type="password" name="pwConfirm" id="pwConfirm" placeholder="Required: Confirm password"><span class="focus-input100"></span>
+					<input class="input100" type="password" name="pwConfirm" id="pwConfirm" placeholder="Confirm password"><span class="focus-input100"></span>
 				</div>
 				<div class="error-msg" id="validate-confirm"></div>
 
