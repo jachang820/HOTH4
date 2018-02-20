@@ -4,7 +4,12 @@ Originally developed for Hack on the Hill 4 at UCLA, Project:LNX is an app that 
 
 ## Getting Started
 
-The app currently runs on a Django backend with sqlite3 database (will switch to mysql).
+1. Download the latest version of Python
+2. Download latest version of Django with the command 'pip install django'
+3. Pull repository
+4. Go into the outer 'mysite' folder in the project
+5. Run server with 'python manage.py runserver'
+6. The app will run on 'localhost:8000/'
 
 ## Authors
 
