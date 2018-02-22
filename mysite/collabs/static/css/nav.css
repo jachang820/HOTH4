@@ -1,0 +1,18 @@
+nav {
+	position: fixed;
+	height: 2em;
+	width: 100%;
+	background-color: #CCCCCC;
+}
+
+#search-box {
+	z-index: 1;
+	position: fixed;
+	height: 2em;
+	width: 100%;
+	background-color: #CCCCCC;
+}
+
+#search-submit {
+	display: none;
+}

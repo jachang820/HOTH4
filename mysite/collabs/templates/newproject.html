@@ -1,0 +1,20 @@
+{% extends '__dashboard.html' %}
+
+<h1>Create a New Project</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {% include '_input.html' with label='title' desc="Title" %}
+  {% include '_input.html' with label='tagline' desc="Tagline" %}
+  {% include '_textinput.html' with label='description' desc="Description" %}
+
+  <div class="wrap-input100">
+    <input class="input100" type="majors" name="majors" id="majors">
+    <span class="focus-input100" data-placeholder="Who do you need to help you? (separate with commas)"></span>
+  </div>
+
+  <span class="input100">Upload a profile photo.</span>
+  {% include '_input.html' with label='photo' type='file' accept="image/jpeg" %}
+
+  {% include '_fancybutton.html' with text="new project" %}
+</form>

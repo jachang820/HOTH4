@@ -39,42 +39,6 @@
 
     </div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>Create a New Project</h2>
-                </div>
-                <div class="modal-body">
-                    
-                    <form method="post">
-                        {% csrf_token %}
-                        {% include '_input.html' with label='title' desc="Title" %}
-                        {% include '_input.html' with label='tagline' desc="Tagline" %}
-
-                        <div class="wrap-input100 validate-input" id="pd">
-                            <textarea class="input100 form-control" type="description" name="description" id="description" rows="10"></textarea>
-                            <span class="focus-input100" data-placeholder="Description"></span>
-                        </div>
-
-                        <div class="wrap-input100">
-                            <input class="input100" type="majors" name="majors" id="majors">
-                            <span class="focus-input100" data-placeholder="Who do you need to help you? (separate with commas)"></span>
-                        </div>
-
-                        <span class="input100">Upload a profile photo.</span>
-                        {% include '_input.html' with label='photo' type='file' accept="image/jpeg" %}
-
-                        {% include '_fancybutton.html' with text="new project" %}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 

@@ -25,7 +25,6 @@ Also thanks to the people who taught us so much and designed our logo.
 
 * Remove dependency from Foundation and Bootstrap.
 * Fix new project form. Add collab majors by tags.
-* View project details as a modal.
 * Clean up project tile view.
 * Add sign out button.
 * Add user profile dashboard.

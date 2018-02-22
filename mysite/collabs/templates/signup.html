@@ -1,60 +1,64 @@
-{% extends '__base.html' %}
+{% extends '__portal.html' %}
 
 {% load static %}
-{% block content %}
-	<div class="wrap-login100">
+{% block stylesheets %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+{% endblock %}
+{% block panel %}
+
+	<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}" name="signupform" id="signupform" 
+		data-validate-email-url="{% url 'validate_email' %}" 
+		data-validate-photo-url="{% url 'validate_photo' %}" 
+		data-validate-major-url="{% url 'validate_major' %}" 
+		data-validate-username-url="{% url 'validate_username' %}" 
+		data-validate-password-url="{% url 'validate_password' %}">
+		{% csrf_token %}
+		<h1>
+			Sign Up
+		</h1>
 		
-		<form method="post" enctype="multipart/form-data" action="{% url 'signup_redirect' %}" name="signupform" id="signupform" 
-			data-validate-email-url="{% url 'validate_email' %}" 
-			data-validate-photo-url="{% url 'validate_photo' %}" 
-			data-validate-major-url="{% url 'validate_major' %}" 
-			data-validate-username-url="{% url 'validate_username' %}" 
-			data-validate-password-url="{% url 'validate_password' %}">
-			{% csrf_token %}
-			<h1>
-				Sign Up
-			</h1>
+		<div id="signuppage1">
+			{% include '_input.html' with label='firstname' desc="First Name" %}
+			{% include '_input.html' with label='lastname' desc="Last Name" %}
+			{% include '_input.html' with label='email' desc="Email" %}
+		</div>
+		<div id="signuppage2">
+			<span class="input100">Upload a profile photo.</span>
+			{% include '_input.html' with label='photo' type='file' accept="image/jpeg" %}
 			
-			<div id="signuppage1">
-				{% include '_input.html' with label='firstname' desc="First Name" %}
-				{% include '_input.html' with label='lastname' desc="Last Name" %}
-				{% include '_input.html' with label='email' desc="Email" %}
-			</div>
-			<div id="signuppage2">
-				<span class="input100">Upload a profile photo.</span>
-				{% include '_input.html' with label='photo' type='file' accept="image/jpeg" %}
-				
-				<select class="input100" name="major" id="major">
-					<option value="none" selected disabled hidden>Major</option>
-				{% for major in majors %}
-					<option value="{{ major }}">{{ major }}</option>
-				{% endfor %}
-				</select><span class="focus-input100"></span>
-				<div class="error-msg" id="validate-major"></div>
-			</div>
-			<div id="signuppage3">
-				{% include '_input.html' with label='name' desc="Username" %}
-				{% include '_password.html' with label='password' desc="Password" %}
-				{% include '_password.html' with label='confirm' desc="Confirm password" %}
-				{% include '_fancybutton.html' with text="create account" %}
-			</div>
+			<select class="input100" name="major" id="major">
+				<option value="none" selected disabled hidden>Major</option>
+			{% for major in majors %}
+				<option value="{{ major }}">{{ major }}</option>
+			{% endfor %}
+			</select><span class="focus-input100"></span>
+			<div class="error-msg" id="validate-major"></div>
+		</div>
+		<div id="signuppage3">
+			{% include '_input.html' with label='name' desc="Username" %}
+			{% include '_password.html' with label='password' desc="Password" %}
+			{% include '_password.html' with label='confirm' desc="Confirm password" %}
+			{% include '_fancybutton.html' with text="create account" %}
+		</div>
 
-			<span class="smallprint">
-				Already have an account?
-				<a href="{% url 'login' %}">
-				Log In
-				</a>
-			</span>
+		<span class="smallprint">
+			Already have an account?
+			<a href="{% url 'login' %}">
+			Log In
+			</a>
+		</span>
 
-		</form>
+	</form>
 
-		<nav id="signupsteps">
-			<span id="step1">1: Id</span>
-			<span id="step2">2: Profile</span>
-			<span id="step3">3: Sign-in</span>
-		</nav>
-
+	<div id="signupsteps">
+		<span id="step1">1: Id</span>
+		<span id="step2">2: Profile</span>
+		<span id="step3">3: Sign-in</span>
 	</div>
 
+{% endblock %}
+{% block page-scripts %}
+	{{ block.super }}
 	<script src="{% static 'js/signup.js' %}"></script>
 {% endblock %}

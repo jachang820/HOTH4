@@ -1,30 +1,30 @@
-{% extends '__base.html' %}
+{% extends '__portal.html' %}
 
 {% load static %}
-{% block content %}
-	<div class="wrap-login100">
-		
-		<form method="post" class="login100-form validate-form" action="{% url 'auth' %}">
-			{% csrf_token %}
-			<h1>
-				Welcome to Project: LNX
-			</h1>
-			<p id="logo"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
+{% block panel %}
+	
+	<form method="post" class="login100-form validate-form" action="{% url 'auth' %}">
+		{% csrf_token %}
+		<h1>
+			Welcome to Project: LNX
+		</h1>
+		<p id="logo"><img src="{% static 'img/ProjectLNXLogo.png' %}" height="100" width="100" alt="Logo"></p>
 
-			{% include '_input.html' with label='name' desc="Username" %}
-			{% include '_password.html' with label='password' desc="Password" %}
-			{% include '_fancybutton.html' with text="login" %}
+		{% include '_input.html' with label='name' desc="Username" %}
+		{% include '_password.html' with label='password' desc="Password" %}
+		{% include '_fancybutton.html' with text="login" %}
 
-			<span class="smallprint">
-				Don’t have an account?
-				<a href="{% url 'signup' %}">
-					Sign Up
-				</a>
-			</span>
+		<span class="smallprint">
+			Don’t have an account?
+			<a href="{% url 'signup' %}">
+				Sign Up
+			</a>
+		</span>
 
-		</form>
-		
-	</div>
+	</form>
 
+{% endblock %}
+{% block page-scripts %}
+	{{ block.super }}
 	<script src="{% static 'js/login.js' %}"></script>
 {% endblock %}

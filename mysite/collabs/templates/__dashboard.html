@@ -1,0 +1,40 @@
+{% extends '__base.html' %}
+
+{% load static %}
+{% block stylesheets %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	<nav>
+		<a href="{% url 'findprojects.html' %}"><img src="{% static 'img/logo.png' %}"></a>
+  	<a href="{% url 'about.html' %}">About</a>
+  	<img src="{% static 'img/search.png' %}" id="nav-search">
+  	<a href="{% url 'myprojects.html' %}">My Projects</a>
+  	<span class="my-account"><img src="{{ user.profile.photo }}" class="profile-photo">{{ user.username }}</span>
+  </nav>
+
+  <div id="search-box">
+  	<form method="get">
+  		Filter: <div id="filter-options"></div>
+  		<img src="{% static 'img/search.png' %}" id="nav-search"><input name="search" id="search-input" type="text">
+  		<button id="search-submit"></button>
+  	</form>
+		<img src="{% static 'img/close.png' %}">
+  </div>
+
+  <div id="account-box">
+		<span>Profile</span>
+		<span>Log out</span>
+  </div>
+
+	{% block main %}
+	{% endblock %}
+
+	{% block page-scripts %}
+		<script src="{% static 'js/nav.js' %}"></script>
+	{% endblock %}
+
+{% endblock %}
